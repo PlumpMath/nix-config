@@ -464,11 +464,11 @@
         "which-key": "which-key"
       },
       "locked": {
-        "lastModified": 1671032462,
-        "narHash": "sha256-e1O//Tr97DyZsJ8qVpqekiqTwJVttP4JGfh4GME4vJs=",
+        "lastModified": 1671033344,
+        "narHash": "sha256-T2f5eQuhzxQdAv7rdBDeJZd3kF8hLAEN83wQcbITFB0=",
         "owner": "GuruPoo",
         "repo": "neovim-flake",
-        "rev": "b66b8d8b75de6083dd57addd0f88bc31ba9a2e78",
+        "rev": "f2c2b2c0851b6dc5b3d6fe3fd1935962f6fb92ff",
         "type": "github"
       },
       "original": {
