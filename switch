@@ -1,0 +1,53 @@
+#! /usr/bin/env bash
+
+# Shows the output of every command
+set +x
+
+activateHM() {
+  rm ~/.config/orage/oragerc.bak
+  rm -rf ~/.config/secrets
+  HOME_MANAGER_BACKUP_EXT=bak result/activate
+  hm-changes-report
+}
+
+rebuild_home_edp() {
+  nix build .#homeConfigurations.gvolpe-edp.activationPackage
+  activateHM
+}
+
+rebuild_home_hdmi() {
+  nix build .#homeConfigurations.gvolpe-hdmi.activationPackage
+  activateHM
+}
+
+rebuild_system() {
+  # nix build .#nixosConfigurations.tongfang-amd.config.system.build.toplevel
+  # sudo result/bin/switch-to-configuration switch
+  sudo nixos-rebuild switch --flake .#tongfang-amd
+}
+
+rebuild_vm() {
+  sudo nixos-rebuild build-vm --flake .#tongfang-amd
+}
+
+restart_X() {
+  echo "⚠️ Restarting X11 (requires authentication) ⚠️"
+  systemctl restart display-manager
+}
+
+case $1 in
+  "edp")
+    rebuild_home_edp;;
+  "hdmi")
+    rebuild_home_hdmi;;
+  "restart-x")
+    restart_X;;
+  "update-fish")
+    fish -c fish_update_completions;;
+  "system")
+    rebuild_system;;
+  "vm")
+    rebuild_vm;;
+  *)
+    echo "expected 'edp', 'hdmi', 'restart-x', 'update-fish', 'system' or 'vm'";;
+esac
